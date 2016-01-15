@@ -89,6 +89,32 @@ else
   });
 });
 
+app.post('/getuserslist', function (req, res) 
+{
+  console.log('Getting users list up...');
+  userSchemaObj.find({ }, function(err, usersList) {
+
+if (err) {
+  res.writeHead(200, {"Content-Type": "application/json"});
+      var reponseObject = { code:"200", message: "Error occured" };
+      var json = JSON.stringify({  
+        response:reponseObject
+      });
+      res.end(json);
+}
+else
+{
+  res.writeHead(200, {"Content-Type": "application/json"});
+      var reponseObject = { code:"200", message: "Users list", users_list: usersList};
+      var json = JSON.stringify({  
+        response:reponseObject
+      });
+      res.end(json);
+}
+
+  });
+});
+
 function startDBConnection() {
   var dbConObj;
   var dbConObj = require('mongoose');
